@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { isEmpty } from "lodash";
+import { isEmpty, size } from "lodash";
 import shortid from "shortid";
 
 function App() {
@@ -20,6 +20,13 @@ function App() {
     //Al arreglo de tareas agregame la nueva tarea
     setTasks([...tasks, newTask]);
     setTask("");
+  };
+
+  const DeleteTask = (id) => {
+    // alert("ID a eliminar: " + id);
+
+    const filteredTask = tasks.filter((task) => task.id !== id);
+    setTasks(filteredTask);
   };
 
   return (
@@ -48,19 +55,26 @@ function App() {
         </div>
         <div className="col-12 col-md-8">
           <h4 className="text-center">Lista de tareas</h4>
-          <ul className="list-group">
-            {tasks.map((task) => (
-              <li className="list-group-item" key={task.id}>
-                <span className="lead"> {task.name}</span>
-                <button className="btn btn-danger btn-sm float-right mx-2">
-                  Eliminar
-                </button>
-                <button className="btn btn-warning btn-sm float-right">
-                  Editar
-                </button>
-              </li>
-            ))}
-          </ul>
+          {size(tasks) === 0 ? (
+            <h6 className="text-center">Sin tareas programadas</h6>
+          ) : (
+            <ul className="list-group">
+              {tasks.map((task) => (
+                <li className="list-group-item" key={task.id}>
+                  <span className="lead"> {task.name}</span>
+                  <button
+                    className="btn btn-danger btn-sm float-right mx-2"
+                    onClick={() => DeleteTask(task.id)}
+                  >
+                    Eliminar
+                  </button>
+                  <button className="btn btn-warning btn-sm float-right">
+                    Editar
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
