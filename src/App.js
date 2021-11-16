@@ -92,7 +92,7 @@ function App() {
         <div className="col-12 col-md-8">
           <h4 className="text-center">Lista de tareas</h4>
           {size(tasks) === 0 ? (
-            <h6 className="text-center">Sin tareas programadas</h6>
+            <li className="list-group-item">Sin tareas programadas</li>
           ) : (
             <ul className="list-group">
               {tasks.map((task) => (
